@@ -8,7 +8,7 @@ sudo ip link set $IFACE down
 sudo iw dev $IFACE set type monitor
 sudo ip link set $IFACE up
 
-echo "[*] Running airodump-ng (tekan Ctrl+C jika sudah menemukan target)..."
+echo "[*] Running airodump-ng (Enter Ctrl+C if you have found a target)..."
 sleep 2
 sudo airodump-ng $IFACE
 
