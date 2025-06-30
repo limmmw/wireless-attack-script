@@ -39,7 +39,7 @@ echo "[2] Enter to Manage Mode"
 echo "[3] Exit"
 read -p "[?] Choose Options: " Choose
 
-case $pilih in
+case $Choose in
     1) enable_monitor ;;
     2) disable_monitor ;;
     3) exit ;;

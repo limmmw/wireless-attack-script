@@ -41,7 +41,7 @@ fi
 echo
 read -p "[?] Would you like to set interface to normal mode? (y/n): " Answer
 
-if [[ "$jawab" == "y" || "$jawab" == "Y" ]]; then
+if [[ "$Answer" == "y" || "$Answer" == "Y" ]]; then
     echo "[*] Return to Normal mode..."
     sudo ip link set $IFACE down
     sudo iw dev $IFACE set type managed
