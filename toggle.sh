@@ -3,19 +3,19 @@
 INTERFACE="wlp3s0"  # Ganti sesuai nama interface kamu
 
 stop_services() {
-    echo "[*] Mematikan NetworkManager dan wpa_supplicant..."
+    echo "[*] Disable NetworkManager and wpa_supplicant..."
     sudo systemctl stop NetworkManager 2>/dev/null
     sudo systemctl stop wpa_supplicant 2>/dev/null
 }
 
 start_services() {
-    echo "[*] Menyalakan kembali NetworkManager dan wpa_supplicant..."
+    echo "[*] Activate NetworkManager dan wpa_supplicant..."
     sudo systemctl start NetworkManager 2>/dev/null
     sudo systemctl start wpa_supplicant 2>/dev/null
 }
 
 enable_monitor() {
-    echo "[*] Mengaktifkan monitor mode pada $INTERFACE..."
+    echo "[*] Activate monitor mode on $INTERFACE..."
     stop_services
     sudo ip link set $INTERFACE down
     sudo iw dev $INTERFACE set type monitor
@@ -36,7 +36,7 @@ clear
 echo "=== Monitor Mode Toggle ==="
 echo "[1] Enter to Monitor Mode"
 echo "[2] Enter to Manage Mode"
-echo "[3] Keluar"
+echo "[3] Exit"
 read -p "[?] Choose Options: " Choose
 
 case $pilih in
