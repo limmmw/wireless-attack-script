@@ -4,6 +4,25 @@
 IFACE="wlp3s0"
 
 cleanup() {
+
+    GREEN='\033[1;32m'
+RESET='\033[0m'
+
+clear
+echo -e "${GREEN}"
+echo "        (\_/)"
+echo "        ( •_•)     [Kick Their Ass Out...]"
+echo "       / >💻      "
+echo "     //|_|\\\\     "
+echo "    ( @Limmmw )"
+echo "     \_______/ "
+echo "    | Terminal |"
+echo "    |   Mode   |"
+echo "   /___________\\"
+echo ""
+echo "🐰: \"I'm in.\""
+echo -e "${RESET}"
+
     echo -e "\n[!] Ctrl+C detected. Killing Deauther Attacks..."
     for pid in "${XTERM_PIDS[@]}"; do
         kill "$pid" 2>/dev/null
