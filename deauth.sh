@@ -5,10 +5,9 @@ IFACE="wlp3s0"
 
 cleanup() {
 
-    GREEN='\033[1;32m'
+GREEN='\033[1;32m'
 RESET='\033[0m'
 
-clear
 echo -e "${GREEN}"
 echo "        (\_/)"
 echo "        ( •_•)     [Kick Their Ass Out...]"
