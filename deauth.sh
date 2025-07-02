@@ -31,7 +31,7 @@ echo -e "${RESET}"
 
 echo "[*] Activating Scanning mode..."
 echo "[*] Running airodump-ng (Press CTRL+C if target is detected)..."
-sleep 2
+sleep 5
 sudo airodump-ng $IFACE
 
 echo
